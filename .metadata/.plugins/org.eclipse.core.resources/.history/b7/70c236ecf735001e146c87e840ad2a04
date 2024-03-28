@@ -1,0 +1,23 @@
+package com.springboot.web.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.web.entities.Books;
+import com.springboot.web.services.bookService;
+
+@RestController
+public class BookController {
+	
+	@Autowired
+	private bookService bookservice;
+	
+	@GetMapping("/books")
+	public List<Books> getBooks() {
+		return this.bookservice.getallBooks();
+	}
+}

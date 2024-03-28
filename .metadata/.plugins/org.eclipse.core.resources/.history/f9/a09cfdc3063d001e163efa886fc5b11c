@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org" th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	
+	<section class="banner d-flex justify-content-center align-items-center">
+		<div class="text-center">
+			<h1>Smart Contacts Manager</h1>
+			<p>This is Sign-up</p>
+			
+			<button class="btn bg-primary btn-lg text-white">Get Started</button>
+		</div>
+	</section>
+	
+</body>
+</html>

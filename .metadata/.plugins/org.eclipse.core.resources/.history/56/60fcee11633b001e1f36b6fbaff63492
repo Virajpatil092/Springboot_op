@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<title>Hehe</title>
+</head>
+<body>
+	<h1>use if <span th:text="${isActive} ? 'user is active' : 'na baba na'"></span></h1>
+</body>
+</html>
