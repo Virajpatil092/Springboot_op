@@ -1,14 +1,14 @@
 package com.security.controller;
 
-import com.security.model.AuthenticationResponce;
+import com.security.model.AuthenticationResponse;
 import com.security.model.User;
 import com.security.service.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
     private final AuthService authService;
 
@@ -17,12 +17,12 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponce> register(@RequestBody User user){
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody User user){
         return ResponseEntity.ok(authService.register(user));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponce> authenticate(@RequestBody User user) {
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody User user) {
         return ResponseEntity.ok(authService.authenticate(user));
     }
 }

@@ -1,6 +1,7 @@
 package com.security.service;
 
 import com.security.model.User;
+import com.security.repo.TokenRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -16,13 +17,26 @@ import java.util.function.Function;
 public class JwtService {
     private String SECRET_KEY = "7083df6078d40621ea218646968f981812026231a3772835c6390873f062c801";
 
+    private final TokenRepo tokenRepo;
+
+    public JwtService(TokenRepo tokenRepo) {
+        this.tokenRepo = tokenRepo;
+    }
+
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
     }
 
+    public User extractUser(String token){
+        return tokenRepo.findByToken(token).map(t->t.getUser()).orElse(null);
+    }
+
     public boolean isValid(String token, UserDetails user){
         final String username = extractUsername(token);
-        return username.equals(user.getUsername()) && !isTokenExpired(token);
+
+        boolean isvalidToken = tokenRepo.findByToken(token).map(t->!t.isIs_logged_out()).orElse(false);
+
+        return username.equals(user.getUsername()) && !isTokenExpired(token) && isvalidToken;
     }
 
     public boolean isTokenExpired(String token){

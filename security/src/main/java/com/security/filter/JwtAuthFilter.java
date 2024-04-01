@@ -2,6 +2,8 @@ package com.security.filter;
 
 import com.security.service.JwtService;
 import com.security.service.UserDetailsServiceImpl;
+import com.security.model.Token;
+import com.security.repo.TokenRepo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,6 +28,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
     }
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,

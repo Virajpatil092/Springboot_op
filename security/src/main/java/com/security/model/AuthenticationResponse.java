@@ -1,9 +1,9 @@
 package com.security.model;
 
-public class AuthenticationResponce {
+public class AuthenticationResponse {
     private String token;
 
-    public AuthenticationResponce(String token) {
+    public AuthenticationResponse(String token) {
         this.token = token;
     }
 
