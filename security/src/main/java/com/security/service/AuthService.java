@@ -30,6 +30,10 @@ public class AuthService {
     }
 
     public AuthenticationResponse register(User  request){
+        if(userRepo.findByUsername(request.getUsername()).isPresent()){
+            return null;
+        }
+
         User user = new User();
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
@@ -68,21 +72,26 @@ public class AuthService {
     }
 
     public AuthenticationResponse authenticate(User request){
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
+        try{
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
 
-        User user = userRepo.findByUsername(request.getUsername()).orElseThrow();
+            User user = userRepo.findByUsername(request.getUsername()).orElseThrow();
 
-        String jwt = jwtService.generateToken(user);
+            String jwt = jwtService.generateToken(user);
 
-        RevokeAllTokensByUser(user);
+            RevokeAllTokensByUser(user);
 
-        saveUserToken(jwt, user);
+            saveUserToken(jwt, user);
 
-        return new AuthenticationResponse(jwt);
+            return new AuthenticationResponse(jwt);
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 }
